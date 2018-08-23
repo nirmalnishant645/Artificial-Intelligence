@@ -11,13 +11,13 @@ corpus = tm_map(corpus, removeWords, stopwords())
 corpus = tm_map(corpus, stemDocument)
 corpus = tm_map(corpus, stripWhitespace)
 
-#Bag of words model
+#Bag of Words Model
 dtm = DocumentTermMatrix(corpus)
 dtm = removeSparseTerms(dtm, 0.999)
 dataset1 = as.data.frame(as.matrix(dtm))
 dataset1$headline_type = dataset$type
 
-#splitting data into training and test data
+#Splitting Data into Training and Test Data
 #install.packages('caTools')
 library(caTools)
 set.seed(123)
@@ -26,18 +26,18 @@ test_set = subset(dataset1, split == TRUE)
 training_set = subset(dataset1, split == FALSE)
 
 
-#Fitting Naive Bayes to the training set
+#Fitting Naive Bayes to the Training Set
 #install.packages('e1071')
 library(e1071)
 classifier = naiveBayes(x = training_set[-8894],
                         y = training_set$headline_type)
 
 
-#Predicting the Test set Results
+#Predicting the Test Set Results
 y_pred = predict(classifier, newdata = test_set[-8894])
 
 
-#Making the COnfusion Matrix
+#Making the Confusion Matrix
 cm = table(test_set[, 8894], y_pred)
 
 classifier$apriori
@@ -46,7 +46,7 @@ classifier$apriori
 accuracy = (cm[1,1] + cm[2,2] + cm[3,3] + cm[4,4] + cm[5,5]) / (cm[1,1]+cm[1,2]+cm[1,3]+cm[1,4]+cm[1,5]+cm[2,1]+cm[2,2]+cm[2,3]+cm[2,4]+cm[2,5]+cm[3,1]+cm[3,2]+cm[3,3]+cm[3,4]+cm[3,5]+cm[4,1]+cm[4,2]+cm[4,3]+cm[4,4]+cm[4,5]+cm[5,1]+cm[5,2]+cm[5,3]+cm[5,4]+cm[5,5])
 print(accuracy)
 
-#category <- c('sport','entertainment','politics', 'business','tech')
+#Category <- c('sport','entertainment','politics', 'business','tech')
 library(plotly)
 library(ggplot2)
 Sys.setenv("plotly_username"="nirmalnishant645")
