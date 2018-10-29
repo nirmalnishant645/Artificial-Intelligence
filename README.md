@@ -1,1 +1,1 @@
-# Machine-Learning-with-R
+# Artificial Intelligence Projects
