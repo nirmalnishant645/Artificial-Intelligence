@@ -1,1 +1,1 @@
-# Artificial Intelligence Projects
+# R Programming Projects
